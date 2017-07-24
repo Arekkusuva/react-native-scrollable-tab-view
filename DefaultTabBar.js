@@ -18,6 +18,7 @@ const DefaultTabBar = React.createClass({
     inactiveTextColor: React.PropTypes.string,
     textStyle: Text.propTypes.style,
     tabStyle: ViewPropTypes.style,
+    tabContainerStyle: View.propTypes.style,
     renderTab: React.PropTypes.func,
     underlineStyle: ViewPropTypes.style,
   },
@@ -27,6 +28,7 @@ const DefaultTabBar = React.createClass({
       activeTextColor: 'navy',
       inactiveTextColor: 'black',
       backgroundColor: null,
+      tabContainerStyle: {},
     };
   },
 
@@ -39,7 +41,7 @@ const DefaultTabBar = React.createClass({
     const fontWeight = isTabActive ? 'bold' : 'normal';
 
     return <Button
-      style={styles.flexOne}
+      style={[styles.flexOne, this.props.tabContainerStyle]}
       key={name}
       accessible={true}
       accessibilityLabel={name}
