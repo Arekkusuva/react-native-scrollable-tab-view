@@ -25,6 +25,7 @@ const ScrollableTabBar = React.createClass({
     scrollOffset: React.PropTypes.number,
     style: ViewPropTypes.style,
     tabStyle: ViewPropTypes.style,
+    tabContainerStyle: View.propTypes.style,
     tabsContainerStyle: ViewPropTypes.style,
     textStyle: Text.propTypes.style,
     renderTab: React.PropTypes.func,
@@ -40,6 +41,7 @@ const ScrollableTabBar = React.createClass({
       backgroundColor: null,
       style: {},
       tabStyle: {},
+      tabContainerStyle: {},
       tabsContainerStyle: {},
       underlineStyle: {},
     };
@@ -129,6 +131,7 @@ const ScrollableTabBar = React.createClass({
     const fontWeight = isTabActive ? 'bold' : 'normal';
 
     return <Button
+      style={this.props.tabContainerStyle}
       key={`${name}_${page}`}
       accessible={true}
       accessibilityLabel={name}
