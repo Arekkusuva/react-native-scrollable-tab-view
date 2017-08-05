@@ -31,6 +31,7 @@ const ScrollableTabBar = React.createClass({
     renderTab: React.PropTypes.func,
     underlineStyle: View.propTypes.style,
     onScroll: React.PropTypes.func,
+    centered: React.PropTypes.bool,
   },
 
   getDefaultProps() {
@@ -44,6 +45,7 @@ const ScrollableTabBar = React.createClass({
       tabContainerStyle: {},
       tabsContainerStyle: {},
       underlineStyle: {},
+      centered: false,
     };
   },
 
@@ -94,13 +96,15 @@ const ScrollableTabBar = React.createClass({
 
     // center tab and smooth tab change (for when tabWidth changes a lot between two tabs)
     newScrollX -= (containerWidth - (1 - pageOffset) * tabWidth - pageOffset * nextTabWidth) / 2;
-    newScrollX = newScrollX >= 0 ? newScrollX : 0;
+    if (!this.props.centered) newScrollX = newScrollX >= 0 ? newScrollX : 0;
 
     if (Platform.OS === 'android') {
       this._scrollView.scrollTo({x: newScrollX, y: 0, animated: false, });
     } else {
-      const rightBoundScroll = this._tabContainerMeasurements.width - (this._containerMeasurements.width);
-      newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
+      if (!this.props.centered) {
+        const rightBoundScroll = this._tabContainerMeasurements.width - (this._containerMeasurements.width);
+        newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
+      }
       this._scrollView.scrollTo({x: newScrollX, y: 0, animated: false, });
     }
 
